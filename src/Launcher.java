@@ -1,12 +1,14 @@
+import by.tms.lesson22.onl30.classes.TestHandler;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
-public class Main {
+public class Launcher {
     public static void main(String[] args) throws IOException {
         HttpServer localServer = HttpServer.create(new InetSocketAddress(8080), 0);
-
+        localServer.createContext("/", new TestHandler());
+//        localServer.createContext("/", new calculatorHandler());
 
     }
 }
