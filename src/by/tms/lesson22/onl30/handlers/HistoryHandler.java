@@ -41,7 +41,6 @@ public final class HistoryHandler extends MyHandler implements HttpHandler {
                 case "prc" -> resultString.append(myDoubleString(firstOperand)).append("+").append(myDoubleString(secondOperand)).append("=")
                         .append(myDoubleString(firstOperand * secondOperand / 100)).append("\n");
             };
- int r = 0;
         }
         response.setBodyResponse(resultString.toString());
         exchangeAll(exchange, response);
