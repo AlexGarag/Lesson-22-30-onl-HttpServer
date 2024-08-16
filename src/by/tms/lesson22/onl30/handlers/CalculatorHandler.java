@@ -5,23 +5,14 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-import static by.tms.lesson22.onl30.handlers.TestHandler.exchangeAll;
 import static by.tms.lesson22.onl30.other.Constants.CodeResponse.NOT_FOUND;
 import static by.tms.lesson22.onl30.other.Constants.CodeResponse.OK;
-import static by.tms.lesson22.onl30.other.Constants.FormatCsvFile.CSV_TEMPLATE;
-import static by.tms.lesson22.onl30.other.Constants.NameFile.CSV_NAME_FILE;
 import static by.tms.lesson22.onl30.other.Constants.ResultTemplate.ERROR_BODY_TEMPLATE;
 
-public class CalculatorHandler implements HttpHandler {
+public final class CalculatorHandler extends MyHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
@@ -77,17 +68,5 @@ public class CalculatorHandler implements HttpHandler {
             return true;
         }
         return false;
-    }
-
-    private static void writeFile(String firstString, String secondString, String typeOperation) {
-        LocalDateTime dateTime = LocalDateTime.now();
-        ZonedDateTime zoneDateTime = dateTime.atZone(ZoneId.of("Europe/Berlin"));
-        String lineFileCsv = String.format(CSV_TEMPLATE, zoneDateTime.toInstant().toEpochMilli(),
-                firstString, secondString, typeOperation);
-        try {
-            Files.write(Paths.get(CSV_NAME_FILE), lineFileCsv.getBytes(), StandardOpenOption.APPEND);
-        } catch (IOException ex) {
-            System.out.print("Invalid Path");
-        }
     }
 }
