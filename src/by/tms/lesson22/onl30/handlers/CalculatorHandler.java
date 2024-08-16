@@ -1,6 +1,6 @@
 package by.tms.lesson22.onl30.handlers;
 
-import by.tms.lesson22.onl30.other.Response;
+import by.tms.lesson22.onl30.other.ResponseCalculator;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
@@ -16,7 +16,7 @@ public final class CalculatorHandler extends MyHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        Response response = new Response();
+        ResponseCalculator response = new ResponseCalculator();
         String request = exchange.getRequestURI().getQuery(); //http://localhost:8080/calculator?num1=7&num2=5&type=sum
         Map<String, String> parametersRequest = parseRequest(request);
         String firstString = parametersRequest.get("num1");
@@ -38,8 +38,8 @@ public final class CalculatorHandler extends MyHandler implements HttpHandler {
         }
     }
 
-    private Response calculate(double num1, double num2, String typeOperation) {
-        Response response = new Response();
+    private ResponseCalculator calculate(double num1, double num2, String typeOperation) {
+        ResponseCalculator response = new ResponseCalculator();
         switch (typeOperation) {
             case "sum" -> response.setBodyResponse(String.valueOf(num1 + num2));
             case "diff" -> response.setBodyResponse(String.valueOf(num1 - num2));

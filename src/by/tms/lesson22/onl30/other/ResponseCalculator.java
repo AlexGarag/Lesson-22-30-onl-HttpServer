@@ -4,11 +4,11 @@ import static by.tms.lesson22.onl30.other.Constants.CodeResponse.OK;
 import static by.tms.lesson22.onl30.other.Constants.ResultTemplate.RESULT_TEMPLATE;
 import static java.lang.String.format;
 
-public class Response {
+public class ResponseCalculator {
     private int codeResponse;
     private String bodyResponse;
 
-    public Response() {
+    public ResponseCalculator() {
         this.codeResponse = OK;
         this.bodyResponse = "";
     }
@@ -32,8 +32,8 @@ public class Response {
     @Override
     public String toString() {
         return "Response{\n" +
-                "\t\"codeResponse=\"" + codeResponse + ",\n" +
-                "\t\"bodyResponse=\"\"" + bodyResponse + "\"\n" +
+                "\t\"codeResponse\"=" + codeResponse + ",\n" +
+                "\t\"bodyResponse\"=\"" + bodyResponse + "\"\n" +
                 "}";
     }
 }

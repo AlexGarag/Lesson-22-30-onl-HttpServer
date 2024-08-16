@@ -1,6 +1,6 @@
 package by.tms.lesson22.onl30.handlers;
 
-import by.tms.lesson22.onl30.other.Response;
+import by.tms.lesson22.onl30.other.ResponseCalculator;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
@@ -17,14 +17,14 @@ import static by.tms.lesson22.onl30.other.Constants.NameFile.CSV_NAME_FILE;
 
 public abstract class MyHandler implements HttpHandler {
 
-    protected void exchangeAll(HttpExchange exchange, Response response) throws IOException {
+    protected void exchangeAll(HttpExchange exchange, ResponseCalculator response) throws IOException {
         exchange.sendResponseHeaders(response.getCodeResponse(), response.getBodyResponse().length());
         exchange.getResponseBody().write(response.getBodyResponse().getBytes());
         exchange.getResponseBody().close();
     }
 
     protected void writeFile(String firstString, String secondString, String typeOperation) {
-        ZonedDateTime zoneDateTime = LocalDateTime.now().atZone(ZoneId.of("Europe/Berlin"));
+        ZonedDateTime zoneDateTime = LocalDateTime.now().atZone(ZoneId.of("Europe/Minsk"));
         String lineFileCsv = String.format(CSV_TEMPLATE, zoneDateTime.toInstant().toEpochMilli(),
                 firstString, secondString, typeOperation);
         try {
