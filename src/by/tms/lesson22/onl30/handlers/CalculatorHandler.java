@@ -1,30 +1,31 @@
 package by.tms.lesson22.onl30.handlers;
 
+import by.tms.lesson22.onl30.other.Response;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import static by.tms.lesson22.onl30.handlers.CodeResponse.NOT_FOUND;
-import static by.tms.lesson22.onl30.handlers.CodeResponse.OK;
+import static by.tms.lesson22.onl30.other.Constants.CodeResponse.NOT_FOUND;
 
 public class CalculatorHandler implements HttpHandler {
-    private static final String RESULT_TEMPLATE = "result: %s";
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
+        Response response = new Response();
         String request = exchange.getRequestURI().getQuery(); //num1=2&num2=2&type=sum
         Map<String, String> parametersRequest = parseRequest(request);
 // todo сформировать ответ, если не число в параметре
-        double parameterFirst = Integer.valueOf(parametersRequest.get("num1"));
-        double parameterSecond = Integer.valueOf(parametersRequest.get("num2"));
-        Map<Integer, String> result = calculate(parameterFirst, parameterSecond, parametersRequest.get("type"));
-        String bodyResponse = String
-                .format(RESULT_TEMPLATE, result.get(result.size() - 1));
-
+        String firstString = parametersRequest.get("num1");
+        String secondString = parametersRequest.get("num2");
+        if (isNotNumber(firstString) || isNotNumber(secondString)) {
+            response.setCodeResponse(NOT_FOUND);
+            response.setBodyResponse("one of the operands is not a number");
+        } else {
+            response = calculate(Integer.valueOf(firstString), Integer.valueOf(secondString), parametersRequest.get("type"));
+        }
         int i = 0;
 // todo сформировать ответ
 //        exchange.sendResponseHeaders(codeResponse, bodyResponse.length());
@@ -38,22 +39,20 @@ public class CalculatorHandler implements HttpHandler {
 // todo сформировать ответ из всей совокупности операций
     }
 
-    private static Map<Integer, String> calculate(double num1, double num2, String type) {
-        Map<Integer, String> resultOperation = new HashMap<>();
-        int codeResponse = OK;
-        String result = switch (type) {
-            case "sum" -> String.valueOf(num1 + num2);
-            case "diff" -> String.valueOf(num1 - num2);
-            case "mul" -> String.valueOf(num1 * num2);
-            case "div" -> String.valueOf(num1 / num2);
-            case "prc" -> String.valueOf(num1 * num2 / 100);
+    private Response calculate(double num1, double num2, String type) {
+        Response response = new Response();
+        switch (type) {
+            case "sum" -> response.setBodyResponse(String.valueOf(num1 + num2));
+            case "diff" -> response.setBodyResponse(String.valueOf(num1 - num2));
+            case "mul" -> response.setBodyResponse(String.valueOf(num1 * num2));
+            case "div" -> response.setBodyResponse(String.valueOf(num1 / num2));
+            case "prc" -> response.setBodyResponse(String.valueOf(num1 * num2 / 100));
             default -> {
-                codeResponse = NOT_FOUND;
-                yield "invalid operation type specified - " + type;
+                response.setCodeResponse(NOT_FOUND);
+                response.setBodyResponse("invalid operation type specified - " + type);
             }
         };
-        resultOperation.put(codeResponse, result);
-        return resultOperation;
+        return response;
     }
 
     private static Map<String, String> parseRequest(String request) {
@@ -64,5 +63,15 @@ public class CalculatorHandler implements HttpHandler {
             map.put(keyValue[0], keyValue[1]);
         }
         return map;
+    }
+
+
+    private static boolean isNotNumber(String stringAsNumber) {
+        try {
+            Integer.valueOf(stringAsNumber);
+        } catch (Exception e) {
+            return true;
+        }
+        return false;
     }
 }

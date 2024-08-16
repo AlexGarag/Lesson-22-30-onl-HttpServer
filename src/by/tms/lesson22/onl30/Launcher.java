@@ -1,3 +1,5 @@
+package by.tms.lesson22.onl30;
+
 import by.tms.lesson22.onl30.handlers.CalculatorHandler;
 import by.tms.lesson22.onl30.handlers.HistoryHandler;
 import by.tms.lesson22.onl30.handlers.TestHandler;
@@ -7,6 +9,8 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 
 public class Launcher {
+    public static final String RESULT_TEMPLATE = "result: %s";
+
     public static void main(String[] args) throws IOException {
         HttpServer localServer = HttpServer.create(new InetSocketAddress(8080), 0);
         localServer.createContext("/test", new TestHandler());
