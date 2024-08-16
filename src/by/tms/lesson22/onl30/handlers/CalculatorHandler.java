@@ -17,22 +17,18 @@ public class CalculatorHandler implements HttpHandler {
         Response response = new Response();
         String request = exchange.getRequestURI().getQuery(); //num1=2&num2=2&type=sum
         Map<String, String> parametersRequest = parseRequest(request);
-// todo сформировать ответ, если не число в параметре
         String firstString = parametersRequest.get("num1");
         String secondString = parametersRequest.get("num2");
         if (isNotNumber(firstString) || isNotNumber(secondString)) {
             response.setCodeResponse(NOT_FOUND);
             response.setBodyResponse("one of the operands is not a number");
         } else {
-            response = calculate(Integer.valueOf(firstString), Integer.valueOf(secondString), parametersRequest.get("type"));
+            response = calculate(Integer.valueOf(firstString),
+                    Integer.valueOf(secondString), parametersRequest.get("type"));
         }
-        int i = 0;
-// todo сформировать ответ
-//        exchange.sendResponseHeaders(codeResponse, bodyResponse.length());
-//        OutputStream os = exchange.getResponseBody();
-//        os.write(bodyResponse.getBytes());
-//        os.close();
-
+        exchange.sendResponseHeaders(response.getCodeResponse(), response.getBodyResponse().length());
+        exchange.getResponseBody().write(response.getBodyResponse().getBytes());
+        exchange.getResponseBody().close();
 
 // todo сформировать запись в файл
 
