@@ -1,4 +1,4 @@
-package by.tms.lesson22.onl30.classes;
+package by.tms.lesson22.onl30.handlers;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
