@@ -24,8 +24,7 @@ public abstract class MyHandler implements HttpHandler {
     }
 
     protected void writeFile(String firstString, String secondString, String typeOperation) {
-        LocalDateTime dateTime = LocalDateTime.now();
-        ZonedDateTime zoneDateTime = dateTime.atZone(ZoneId.of("Europe/Berlin"));
+        ZonedDateTime zoneDateTime = LocalDateTime.now().atZone(ZoneId.of("Europe/Berlin"));
         String lineFileCsv = String.format(CSV_TEMPLATE, zoneDateTime.toInstant().toEpochMilli(),
                 firstString, secondString, typeOperation);
         try {
