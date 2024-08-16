@@ -4,16 +4,13 @@ import by.tms.lesson22.onl30.other.Response;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +19,7 @@ import static by.tms.lesson22.onl30.other.Constants.CodeResponse.NOT_FOUND;
 import static by.tms.lesson22.onl30.other.Constants.CodeResponse.OK;
 import static by.tms.lesson22.onl30.other.Constants.FormatCsvFile.CSV_TEMPLATE;
 import static by.tms.lesson22.onl30.other.Constants.NameFile.CSV_NAME_FILE;
+import static by.tms.lesson22.onl30.other.Constants.ResultTemplate.ERROR_BODY_TEMPLATE;
 
 public class CalculatorHandler implements HttpHandler {
 
@@ -41,25 +39,9 @@ public class CalculatorHandler implements HttpHandler {
                     Integer.valueOf(secondString), typeOperation);
         }
         exchangeAll(exchange, response);
-//        exchange.sendResponseHeaders(response.getCodeResponse(), response.getBodyResponse().length());
-//        exchange.getResponseBody().write(response.getBodyResponse().getBytes());
-//        exchange.getResponseBody().close();
         if (response.getCodeResponse() == OK) {
             writeFile(firstString, secondString, typeOperation);
-//            LocalDateTime dateTime = LocalDateTime.now();
-//            ZonedDateTime zoneDateTime = dateTime.atZone(ZoneId.of("Europe/Berlin"));
-//            String lineFileCsv = String.format(CSV_TEMPLATE, zoneDateTime.toInstant().toEpochMilli(),
-//                    firstString, secondString, typeOperation);
-//            int i = 0;
-//            byte[] arr = lineFileCsv.getBytes();
-//            try {
-//                Files.write(path, arr);
-//            }
-//            catch (IOException ex) {
-//                System.out.print("Invalid Path");
-//            }
         }
-        int i = 0;
     }
 
     private Response calculate(double num1, double num2, String typeOperation) {
@@ -72,10 +54,9 @@ public class CalculatorHandler implements HttpHandler {
             case "prc" -> response.setBodyResponse(String.valueOf(num1 * num2 / 100));
             default -> {
                 response.setCodeResponse(NOT_FOUND);
-                response.setBodyResponse("invalid operation type specified - " + typeOperation);
+                response.setBodyResponse(String.format(ERROR_BODY_TEMPLATE, typeOperation));
             }
         }
-        ;
         return response;
     }
 
@@ -103,16 +84,8 @@ public class CalculatorHandler implements HttpHandler {
         ZonedDateTime zoneDateTime = dateTime.atZone(ZoneId.of("Europe/Berlin"));
         String lineFileCsv = String.format(CSV_TEMPLATE, zoneDateTime.toInstant().toEpochMilli(),
                 firstString, secondString, typeOperation);
-        int i = 0;
-        //            File csvFile = new File(CSV_NAME_FILE);
-// todo перебросить lineFileCsv в файл
-        Path path
-                = Paths.get(CSV_NAME_FILE);
-        //            String str
-//                    = "TP \nWelcome to the portal \nHello Student!";
-        byte[] arr = lineFileCsv.getBytes();
         try {
-            Files.write(path, arr);
+            Files.write(Paths.get(CSV_NAME_FILE), lineFileCsv.getBytes(), StandardOpenOption.APPEND);
         } catch (IOException ex) {
             System.out.print("Invalid Path");
         }

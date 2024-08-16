@@ -12,6 +12,7 @@ public final class Constants {
 
     public static class ResultTemplate {
         public static final String RESULT_TEMPLATE = "result: %s";
+        public static final String ERROR_BODY_TEMPLATE = "invalid operation type specified - %s";
         public static final String TEST_TEMPLATE = "the server is running";
     }
 

@@ -16,10 +16,6 @@ public class TestHandler implements HttpHandler {
         response.setCodeResponse(OK);
         response.setBodyResponse(TEST_TEMPLATE);
         exchangeAll(exchange, response);
-//        exchange.sendResponseHeaders(response.getCodeResponse(), response.getBodyResponse().length());
-//        exchange.getResponseBody().write(response.getBodyResponse().getBytes());
-//        exchange.getResponseBody().close();
-
     }
 
     public static void exchangeAll(HttpExchange exchange, Response response) throws IOException {
