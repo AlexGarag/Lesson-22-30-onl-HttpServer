@@ -17,6 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
+import static by.tms.lesson22.onl30.handlers.TestHandler.exchangeAll;
 import static by.tms.lesson22.onl30.other.Constants.CodeResponse.NOT_FOUND;
 import static by.tms.lesson22.onl30.other.Constants.CodeResponse.OK;
 import static by.tms.lesson22.onl30.other.Constants.FormatCsvFile.CSV_TEMPLATE;
@@ -39,9 +40,10 @@ public class CalculatorHandler implements HttpHandler {
             response = calculate(Integer.valueOf(firstString),
                     Integer.valueOf(secondString), typeOperation);
         }
-        exchange.sendResponseHeaders(response.getCodeResponse(), response.getBodyResponse().length());
-        exchange.getResponseBody().write(response.getBodyResponse().getBytes());
-        exchange.getResponseBody().close();
+        exchangeAll(exchange, response);
+//        exchange.sendResponseHeaders(response.getCodeResponse(), response.getBodyResponse().length());
+//        exchange.getResponseBody().write(response.getBodyResponse().getBytes());
+//        exchange.getResponseBody().close();
         if (response.getCodeResponse() == OK) {
             writeFile(firstString, secondString, typeOperation);
 //            LocalDateTime dateTime = LocalDateTime.now();

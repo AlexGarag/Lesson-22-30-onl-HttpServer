@@ -1,28 +1,30 @@
 package by.tms.lesson22.onl30.handlers;
 
+import by.tms.lesson22.onl30.other.Response;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
+import static by.tms.lesson22.onl30.other.Constants.CodeResponse.OK;
+import static by.tms.lesson22.onl30.other.Constants.ResultTemplate.TEST_TEMPLATE;
 
 public class TestHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        String response = "Answer from TestPage: Hello World!";
-        exchange.sendResponseHeaders(200, response.length());
-        OutputStream os = exchange.getResponseBody();
-        os.write(response.getBytes());
-        os.close();
-
-//        String query = exchange.getRequestURI().getQuery(); //name=Test
-//
-//
-//
-//        exchange.getResponseBody().write(message.getBytes());
-//
+        Response response = new Response();
+        response.setCodeResponse(OK);
+        response.setBodyResponse(TEST_TEMPLATE);
+        exchangeAll(exchange, response);
+//        exchange.sendResponseHeaders(response.getCodeResponse(), response.getBodyResponse().length());
+//        exchange.getResponseBody().write(response.getBodyResponse().getBytes());
 //        exchange.getResponseBody().close();
+
+    }
+
+    public static void exchangeAll(HttpExchange exchange, Response response) throws IOException {
+        exchange.sendResponseHeaders(response.getCodeResponse(), response.getBodyResponse().length());
+        exchange.getResponseBody().write(response.getBodyResponse().getBytes());
+        exchange.getResponseBody().close();
     }
 }
