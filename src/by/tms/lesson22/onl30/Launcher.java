@@ -16,7 +16,6 @@ public class Launcher {
         HttpServer localServer = HttpServer.create(new InetSocketAddress(JAVA_PORT), 0);
         localServer.createContext("/test", new TestHandler());
         localServer.createContext("/calculator", new CalculatorHandler());
-// todo сформировать ответ из всей совокупности операций
         localServer.createContext("/history", new HistoryHandler());
         localServer.start();
     }
