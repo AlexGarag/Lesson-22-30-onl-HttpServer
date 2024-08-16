@@ -31,7 +31,10 @@ public final class CalculatorHandler extends MyHandler implements HttpHandler {
         }
         exchangeAll(exchange, response);
         if (response.getCodeResponse() == OK) {
-            writeFile(firstString, secondString, typeOperation);
+            Thread threadWriteFile = new Thread(() -> {
+                writeFile(firstString, secondString, typeOperation);
+            });
+            threadWriteFile.start();
         }
     }
 
