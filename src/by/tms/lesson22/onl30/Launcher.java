@@ -9,12 +9,12 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 
 public class Launcher {
-    public static final String RESULT_TEMPLATE = "result: %s";
 
     public static void main(String[] args) throws IOException {
         HttpServer localServer = HttpServer.create(new InetSocketAddress(8080), 0);
         localServer.createContext("/test", new TestHandler());
         localServer.createContext("/calculator", new CalculatorHandler());
+// todo сформировать ответ из всей совокупности операций
         localServer.createContext("/history", new HistoryHandler());
         localServer.start();
     }

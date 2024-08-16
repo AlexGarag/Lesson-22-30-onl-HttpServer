@@ -1,7 +1,7 @@
 package by.tms.lesson22.onl30.other;
 
-import static by.tms.lesson22.onl30.Launcher.RESULT_TEMPLATE;
 import static by.tms.lesson22.onl30.other.Constants.CodeResponse.OK;
+import static by.tms.lesson22.onl30.other.Constants.ResultTemplate.RESULT_TEMPLATE;
 import static java.lang.String.format;
 
 public class Response {
@@ -32,8 +32,8 @@ public class Response {
     @Override
     public String toString() {
         return "Response{\n" +
-                "\tcodeResponse=" + codeResponse + ";\n" +
-                "\tbodyResponse=\"" + bodyResponse + "\"\n" +
+                "\t\"codeResponse=\"" + codeResponse + ",\n" +
+                "\t\"bodyResponse=\"\"" + bodyResponse + "\"\n" +
                 "}";
     }
 }
