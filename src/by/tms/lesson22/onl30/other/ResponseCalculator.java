@@ -26,7 +26,8 @@ public class ResponseCalculator {
     }
 
     public void setBodyResponse(String bodyResponse) {
-        this.bodyResponse = format(RESULT_TEMPLATE, bodyResponse);
+//        this.bodyResponse = format(RESULT_TEMPLATE, bodyResponse);
+        this.bodyResponse = bodyResponse;
     }
 
     @Override

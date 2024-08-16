@@ -26,7 +26,7 @@ public final class HistoryHandler extends MyHandler implements HttpHandler {
         StringBuilder resultString =  new StringBuilder();
         for (String line : historyArray) {
             String[] lineArray = line.split(";");
-            resultString.append(getDateTimeString(Long.valueOf(lineArray[0]))).append("\t---\t\t");
+            resultString.append(getDateTimeString(Long.valueOf(lineArray[0]))).append("\t---\t");
             double firstOperand = Double.valueOf(lineArray[1]);
             double secondOperand = Double.valueOf(lineArray[2]);
             switch (lineArray[3]) {
@@ -34,11 +34,11 @@ public final class HistoryHandler extends MyHandler implements HttpHandler {
                         .append(myDoubleString(firstOperand + secondOperand)).append("\n");
                 case "diff" -> resultString.append(myDoubleString(firstOperand)).append("-").append(myDoubleString(secondOperand)).append("=")
                         .append(myDoubleString(firstOperand - secondOperand)).append("\n");
-                case "mul" -> resultString.append(myDoubleString(firstOperand)).append("+").append(myDoubleString(secondOperand)).append("=")
+                case "mul" -> resultString.append(myDoubleString(firstOperand)).append("*").append(myDoubleString(secondOperand)).append("=")
                         .append(myDoubleString(firstOperand * secondOperand)).append("\n");
-                case "div" -> resultString.append(myDoubleString(firstOperand)).append("+").append(myDoubleString(secondOperand)).append("=")
+                case "div" -> resultString.append(myDoubleString(firstOperand)).append("/").append(myDoubleString(secondOperand)).append("=")
                         .append(myDoubleString(firstOperand / secondOperand)).append("\n");
-                case "prc" -> resultString.append(myDoubleString(firstOperand)).append("+").append(myDoubleString(secondOperand)).append("=")
+                case "prc" -> resultString.append(myDoubleString(firstOperand)).append("%").append(myDoubleString(secondOperand)).append("=")
                         .append(myDoubleString(firstOperand * secondOperand / 100)).append("\n");
             };
         }
