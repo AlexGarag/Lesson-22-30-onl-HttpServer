@@ -8,8 +8,8 @@ import java.net.InetSocketAddress;
 public class Launcher {
     public static void main(String[] args) throws IOException {
         HttpServer localServer = HttpServer.create(new InetSocketAddress(8080), 0);
-//        localServer.createContext("/", new TestHandler());
-        localServer.createContext("/test", new CalculatorHandler());
+        localServer.createContext("/test", new TestHandler());
+        localServer.createContext("/calculator", new CalculatorHandler());
         localServer.start();
     }
 }

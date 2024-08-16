@@ -9,8 +9,6 @@ import java.io.OutputStream;
 public class TestHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        String query = exchange.getRequestURI().getQuery();
-
         String response = "Answer from TestPage: Hello World!";
         exchange.sendResponseHeaders(200, response.length());
         OutputStream os = exchange.getResponseBody();
