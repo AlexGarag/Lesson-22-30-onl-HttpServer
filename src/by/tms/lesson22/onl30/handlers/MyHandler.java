@@ -24,7 +24,7 @@ import static by.tms.lesson22.onl30.other.Constants.ResultTemplate.ERROR_BODY_TE
 
 public abstract class MyHandler implements HttpHandler {
 
-    protected void exchangeAll(HttpExchange exchange, Response response) throws IOException {
+    void exchangeAll(HttpExchange exchange, Response response) throws IOException {
         exchange.sendResponseHeaders(response.getCodeResponse(), response.getBodyResponse().length());
         exchange.getResponseBody().write(response.getBodyResponse().getBytes());
         exchange.getResponseBody().close();
@@ -80,7 +80,7 @@ public abstract class MyHandler implements HttpHandler {
         return localDateTime.format(dateTimeFormatter);
     }
 
-    protected void writeFile(String firstString, String secondString, String typeOperation) {
+    void writeFile(String firstString, String secondString, String typeOperation) {
         ZonedDateTime zoneDateTime = LocalDateTime.now().atZone(ZoneId.of("Europe/Minsk"));
         String lineFileCsv = String.format(CSV_FORMAT_TEMPLATE, zoneDateTime.toInstant().toEpochMilli(),
                 firstString, secondString, typeOperation);
