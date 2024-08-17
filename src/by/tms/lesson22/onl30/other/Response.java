@@ -1,14 +1,12 @@
 package by.tms.lesson22.onl30.other;
 
 import static by.tms.lesson22.onl30.other.Constants.CodeResponse.OK;
-import static by.tms.lesson22.onl30.other.Constants.ResultTemplate.RESULT_TEMPLATE;
-import static java.lang.String.format;
 
-public class ResponseCalculator {
+public class Response {
     private int codeResponse;
     private String bodyResponse;
 
-    public ResponseCalculator() {
+    public Response() {
         this.codeResponse = OK;
         this.bodyResponse = "";
     }
@@ -26,7 +24,6 @@ public class ResponseCalculator {
     }
 
     public void setBodyResponse(String bodyResponse) {
-//        this.bodyResponse = format(RESULT_TEMPLATE, bodyResponse);
         this.bodyResponse = bodyResponse;
     }
 
