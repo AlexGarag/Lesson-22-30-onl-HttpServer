@@ -10,11 +10,12 @@ import java.net.InetSocketAddress;
 
 import static by.tms.lesson22.onl30.other.Constants.Paths.*;
 import static by.tms.lesson22.onl30.other.Constants.Ports.JAVA_PORT;
+import static by.tms.lesson22.onl30.other.Constants.Sockets.DEFAULT;
 
 public class Launcher {
 
     public static void main(String[] args) throws IOException {
-        HttpServer localServer = HttpServer.create(new InetSocketAddress(JAVA_PORT), 0);
+        HttpServer localServer = HttpServer.create(new InetSocketAddress(JAVA_PORT), DEFAULT);
         localServer.createContext(TEST, new TestHandler());
         localServer.createContext(CALCULATOR, new CalculatorHandler());
         localServer.createContext(HISTORY, new HistoryHandler());

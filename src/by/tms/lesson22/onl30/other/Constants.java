@@ -6,8 +6,13 @@ public final class Constants {
         public static final String CALCULATOR = "/calculator";
         public static final String HISTORY = "/history";
     }
+
     public static final class Ports {
         public static final int JAVA_PORT = 8080;
+    }
+
+    public static final class Sockets {
+        public static final int DEFAULT = 0;
     }
 
     public static final class CodeResponse {
